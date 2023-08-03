@@ -124,728 +124,53 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 
-\title{Examen 3A}
-\author{Cruz Martínez Ricardo y Vasquez Arriaga Jorge}
+\title{Estimación básica de una encuesta con diseño multi-etápico}
+\author{Vasquez Arriaga Jorge}
 \date{}
 
 \begin{document}
 \maketitle
 
-\hypertarget{muestreo-bietuxe1pico}{%
-\subsection{1 Muestreo bietápico}\label{muestreo-bietuxe1pico}}
-
-Un estudiante de posgrado tiene una colección de 400 libros en su
-librero. Para estimar el número total de palabras en su colección de
-libros, selecciona una muestra \(s_I\) de dos libros usando un muestreo
-aleatorio simple sin reemplazo. Para los dos libros seleccionados tiene
-el número de páginas de cada uno. Posteriormente, en cada libro
-seleccionado selecciona dos páginas usando un muestreo aleatorio simple
-sin reemplazo. Una vez seleccionada la página registra de cada una el
-número de palabras que contiene. La información muestral es como sigue.
-
-\begin{table}[H]
-  \centering
-  \caption{Muestras seleccionadas en cada etapa y valores observados}
-    \begin{tabular}{cccc}\\
-    Libro  & Número &Páginas & Número de Palabras   \\
-    seleccionado ($s_I$) &de páginas ($N_i$)  & seleccionadas ($s_i$) & en la página ($y_k$) \\ \hline
-    195   & 300   & 61    &  23    \\
-         &       & 212   &  25    \vspace{.2cm}\\
-    288   & 200   & 99    & 20    \\
-          &       & 111   & 20   \\ \hline
-   \end{tabular}
-\end{table}
-
-Aquí las páginas conforman la población de interés y los libros son las
-upm.
-
-\textbf{i)} Calcule las probabilidades de inclusión de primer y segundo
-orden correspondientes a las páginas seleccionadas.
-
-Por el \textbf{Resultado 5.4} de las notas, tenemos que las
-probabilidades de primer orden, cosiderando el muestreo bietápico están
-dadas por \[\pi_k = \pi_{k|i}\pi_{Ii},\] donde \(\pi_{Ii}\) representa
-lal probabilidad de inclusión de la \(upm\) \(i\) (en este caso, serían
-los libros) y \(\pi_{k|i}\) la probabilidad de inclusión del elemento
-\(k\) cuando se realiza la selección en la \(upm\) \(i\) (sería la
-probabilidad de escoger una página del libro \(i\)) y dado que en la
-primera y segunda `etapa' se usó un muestreo aleatorio simple sin
-reemplazo, se tiene que las probabilidades de inclusión correspondientes
-a las páginas seleccionadas son:
-\[\pi_{61} = \frac{2}{400} \cdot \frac{2}{300} = \frac{1}{30000} = \pi_{212}\]
-y
-\[\pi_{99}  = \frac{2}{400} \cdot \frac{2}{200} = \frac{1}{20000} = \pi_{111},\]
-pues \[\pi_{I_{195}} = \frac{2}{400} = \pi_{I_{288}},\] además
-\[\pi_{61|195} = \frac{2}{300} = \pi_{212|195} \quad y \quad \pi_{99|288} = \frac{2}{200} = \pi_{111|288}.\]
-Por otra parte, sabemos que las probabilidades de incluisión de segundo
-orden están dadas por
-
-\[ \pi_{kl}=\begin{cases} 
-      \pi_{Ii}\pi_{kl|i} & \text{si } i=j \\
-      \pi_{Iij}\pi_{k|i}\pi_{l|j} & \text{si } i\neq j  
-   \end{cases}
-\]
-
-donde \(\pi_{Iij}\) representa la probabilidad de inclusión de segundo
-orden para las \(upm\) \(i\) y \(j\), \(i\neq j\) y \(\pi_{kl|i}\) la
-probablidad de inclusión de segundo orden de los elementos \(k\) y \(l\)
-cuando se realiza la selección en la \(upm\) \(i\), entonces, se tiene
-que
-\[\pi_{61 \& 212} = \pi_{I_{195}}\pi_{61\&212 | 195} = \frac{2}{400}\cdot\frac{2}{300(299)} = \frac{1}{8970000}\]
-\[\pi_{99\&111} = \pi_{I_{288}}\pi_{99\&111 | 288} = \frac{2}{400}\cdot \frac{2}{200(199)}= \frac{1}{3980000} \]
-\[\pi_{61 \& 99} = \pi_{I_{195 \&288}}\pi_{61|195}\pi_{99|288} = \frac{2}{400(399)}\cdot\frac{2}{300}\cdot\frac{2}{200} = 8.354218881\times 10^{-10}\]
-\[\pi_{61 \& 111} = \pi_{I_{195 \&288}}\pi_{61|195}\pi_{111|288} = \frac{2}{400(399)}\cdot\frac{2}{300}\cdot\frac{2}{200} = 8.354218881\times 10^{-10}\]
-\[\pi_{212\&99} = \pi_{I_{195 \&288}} \pi_{212|195}\pi_{99|288} = \frac{2}{400(399)}\cdot\frac{2}{300} \cdot\frac{2}{200} = 8.354218881\times 10^{-10} \]
-\[\pi_{212\&111} = \pi_{I_{195 \&288}} \pi_{212|195}\pi_{111|288} = \frac{2}{400(399)}\cdot\frac{2}{300}\cdot\frac{2}{200} = 8.354218881\times 10^{-10}\]
-\textbf{ii)} Calcule el valor estimado del número total de palabras en
-la colección de libros.
-
-Por el \textbf{Resultado 5.5} el estimador HT para el total se ve como
-\[\widehat{t}_{y\pi} = \sum_{i\in s_I}\frac{\widehat{t}_{i\pi}}{\pi_{Ii}}\]
-con \(\widehat{t}_{i\pi} = \sum_{k\in s_i}\frac{y_k}{\pi_{k|i}}\), por
-ende, tenemos que la estimación quedaría de la siguiente manera:
-
-\begin{enumerate}
-    \item Para $S_I = 195$, se tiene que
-    $$ \widehat{t}_{195\pi} = \sum_{k \in \{61, 212\}}\frac{300}{2}y_k = 150(23 + 25) = 7200$$
-    \item Para $S_I = 288$, se tiene
-    $$ \widehat{t}_{288\pi} = \sum_{k \in \{99, 111\}}\frac{200}{2}y_k = 100(40) = 4000 $$
-\end{enumerate}
-
-Por último, nuestra estimación del total quedaría como:
-\[ \widehat{t}_{y\pi} = \sum_{i \in \{195, 288\}}200 \widehat{t}_{i\pi} = 200(7200 + 4000) = 2240000\]
-\textbf{iii)} Dé una estimación insesgada de la varianza del estimador
-usado en ii).
-
-Sabemos, por el \textbf{Resultado 5.6}, que un estimador insesgado de la
-varianza del estimador del inciso anterior está dado por
-\[\widehat{V}(\widehat{t}_{y\pi}) = \widehat{V}_{PSU} + \widehat{V}_{SSU} = \sum_{i\in s_I}\sum_{j\in s_I}\widehat{\Delta}_{Iij}\frac{\widehat{t}_{i\pi}}{\pi_{Ii}}\frac{\widehat{t}_{j\pi}}{\pi_{Ij}} + \sum_{i\in s_I}\frac{\widehat{V}_i}{\pi_{Ii}},\]
-
-donde
-\(\widehat{\Delta}_{Iij} = \frac{\pi_{Iij} - \pi_{Ii}\pi_{Ij}}{\pi_{Iij}}\)
-y
-\(\widehat{V}_i= \sum_{k\in s_i}\sum_{l\in s_i} \widehat{\Delta}_{kl|i}\frac{y_k}{\pi_{k|i}}\frac{y_l}{\pi_{l|i}}\),
-con
-\(\widehat{\Delta}_{kl|i} = \frac{\pi_{kl|i} - \pi_{k|i}\pi_{l|i}}{\pi_{kl|i}}\),
-dado que en la primera y segunda etapa se usó un muestreo aleatorio
-simple sin reemplazo, tenemos que
-\[\sum_{i\in s_I}\sum_{j\in s_I}\widehat{\Delta}_{Iij}\frac{\widehat{t}_{i\pi}}{\pi_{Ii}}\frac{\widehat{t}_{j\pi}}{\pi_{Ij}}\]
-es la expresión de la varianza del estimador HT para un muestreo
-aleatorio simple sin reemplazo para la primera estapa, por lo que se
-tiene que
-\[\sum_{i\in s_I}\sum_{j\in s_I}\widehat{\Delta}_{Iij}\frac{\widehat{t}_{i\pi}}{\pi_{Ii}}\frac{\widehat{t}_{j\pi}}{\pi_{Ij}} = \frac{N^2}{n}\left( 1 - \frac{n}{N} \right)S^2_{\widehat{t_i}_\pi s_I}\]
-con
-\(S^2_{\widehat{t_i}_\pi s_I} = \frac{\sum_{k\in s_I}(\widehat{t}_{i\pi} - \overline{\widehat{t}_{\pi}})^2}{n-1}\),
-\(\overline{\widehat{t}_{\pi}} = \frac{\sum_{i\in s_I}\widehat{t}_{i\pi}}{n}\),
-\(N = 400\) y \(n = 2\).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{s_I <-}\KeywordTok{c}\NormalTok{(}\DecValTok{195}\NormalTok{,}\DecValTok{195}\NormalTok{, }\DecValTok{288}\NormalTok{, }\DecValTok{288}\NormalTok{)}
-\NormalTok{N_i <-}\KeywordTok{c}\NormalTok{(}\DecValTok{300}\NormalTok{,}\DecValTok{300}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{200}\NormalTok{)}
-\NormalTok{s_i <-}\KeywordTok{c}\NormalTok{(}\DecValTok{61}\NormalTok{, }\DecValTok{212}\NormalTok{, }\DecValTok{99}\NormalTok{, }\DecValTok{111}\NormalTok{)}
-\NormalTok{y_k <-}\KeywordTok{c}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{20}\NormalTok{,}\DecValTok{20}\NormalTok{)}
-
-\NormalTok{Datos <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(s_I, N_i, s_i, y_k)}
-
-\NormalTok{t_i =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{7200}\NormalTok{, }\DecValTok{4000}\NormalTok{)}
- 
-\NormalTok{PSU =}\StringTok{ }\KeywordTok{var}\NormalTok{(t_i)}\OperatorTok{*}\NormalTok{(}\DecValTok{400}\OperatorTok{^}\DecValTok{2} \OperatorTok{/}\StringTok{ }\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\DecValTok{2}\OperatorTok{/}\DecValTok{400}\NormalTok{)}
-\NormalTok{PSU}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 4.07552e+11
-\end{verbatim}
-
-De manera similar, tenemos que el segundo término del sumando, dado que
-a cada \(V_i\) la podemos pensar como una suma de varianzas del
-estimador HT aplicado a las páginas de los libros seleccionados, se
-tiene que
-\[\widehat{V}_i= \sum_{k\in s_i}\sum_{l\in s_i} \widehat{\Delta}_{kl|i}\frac{y_k}{\pi_{k|i}}\frac{y_l}{\pi_{l|i}} = \frac{N_i^2}{2}\left( 1 - \frac{2}{N_i} \right) S^2_{y s_i}\]
-con
-\(S^2_{y s_i} = \frac{\sum_{k\in s_i}(y_k - \overline{y}_{s_i})^2}{n-1}\)
-y \(\overline{y}_{s_i} = \frac{\sum_{k\in s_i}y_k}{n}\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(dplyr)}
-\NormalTok{V_i =}\StringTok{ }\NormalTok{Datos }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(s_I)}\OperatorTok{%>%}\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{V_i =}\KeywordTok{unique}\NormalTok{(N_i)}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\DecValTok{2}\OperatorTok{*}\NormalTok{(}\DecValTok{1}
-
-     \OperatorTok{-}\StringTok{ }\DecValTok{2}\OperatorTok{/}\KeywordTok{unique}\NormalTok{(N_i))}\OperatorTok{*}\KeywordTok{var}\NormalTok{(y_k))}\OperatorTok{%>%}\KeywordTok{ungroup}\NormalTok{()}
-
-\NormalTok{SSU =}\StringTok{ }\KeywordTok{sum}\NormalTok{(V_i) }\OperatorTok{*}\StringTok{ }\NormalTok{(}\DecValTok{400} \OperatorTok{/}\StringTok{ }\DecValTok{2}\NormalTok{)}
-
-\NormalTok{SSU}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 17976600
-\end{verbatim}
-
-Finalmente, la estimación de la varianza estaría dada por
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{PSU }\OperatorTok{+}\StringTok{ }\NormalTok{SSU}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 4.0757e+11
-\end{verbatim}
-
-\textbf{iv)} Dé una aproximación de la varianza del estimador usado en
-ii) que sólo use las probabilidades de inclusión de primer orden o los
-factores de expansión.
-
-Sabemos, por la ecuación \((168)\) de las notas, que bajo los supuestos
-de \(\pi_{Ii} = n_I p_i\) y \(m_I = n_I\) usando un muestreo con
-reemplazo para seleccionar las upm, se tiene que una estimación de la
-varianza es la siguiente
-\[ \widehat{V}(\widehat{t}_{y\pi}) = \frac{n_I}{n_I - 1}\sum_{i = 1}^{n_I}\left(\frac{\widehat{t}_{i\pi}}{\pi_{Ii}} - \frac{\widehat{t}_{y\pi}}{n_I} \right)^2\]
-en nuestro caso, tenemos que \(n_I = 2\),
-\(\frac{\widehat{t}_{y\pi}}{2} = \frac{\frac{400}{2} \cdot (7200 + 4000)}{2} = \frac{2240000}{2} = 1120000\),
-por ende, tenemos lo siguiente
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{t_ypi2 =}\StringTok{ }\DecValTok{1120000}
-\NormalTok{estVar <-}\StringTok{ }\DecValTok{2} \OperatorTok{*}\StringTok{ }\KeywordTok{sum}\NormalTok{((}\DecValTok{400}\OperatorTok{/}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{t_i }\OperatorTok{-}\StringTok{ }\NormalTok{t_ypi2)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\NormalTok{estVar}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 4.096e+11
-\end{verbatim}
-
-\hypertarget{comparaciuxf3n-de-diseuxf1os-de-muestreo}{%
-\subsection{2 Comparación de diseños de
-muestreo}\label{comparaciuxf3n-de-diseuxf1os-de-muestreo}}
-
-Suponga que se realizará una nueva elección de diputaciones a nivel
-federal y le han encargado realizar el diseño de muestreo. Para esto
-cuenta con la información de los resultados a nivel acta (casilla) de
-los cómputos distritales de 2021
-(\url{https://computos2021.ine.mx/base-de-datos}).
-
-Por simplicidad suponga que se centrará en estudiar los diseños de
-manera que elegirá el que sirva para realizar de la mejor forma la
-estimación del porcentaje de votos a favor de una coalición integrada
-por Morena, PT y P. Verde a nivel nacional.
-
-En el denominador considerará sólo el total de votos válidos, es decir,
-que no se considerarán los votos nulos para efectos del cálculo del
-porcentaje.
-
-Consideré los siguientes tres diseños a comparar:
-
-\begin{enumerate}
-\def\labelenumi{\roman{enumi}.}
-\tightlist
-\item
-  Se seleccionan 1200 casillas de las 163,666 usando un muestreo
-  aleatorio simple sin reemplazo.
-\item
-  Se considera una estratificación a partir de los 300 diferentes
-  distritos electorales del país. El diseño de muestreo considerado en
-  cada estrato corresponde a un muestreo aleatorio simple sin reemplazo
-  de 4 casillas.
-\item
-  Se considera una estratificación considerando las cinco
-  circunscripciones electorales de México. En cada estrato se usa un
-  muestreo aleatorio simple sin reemplazo para seleccionar 8 distritos
-  electorales y en cada distrito electoral seleccionado se usa un
-  muestreo aleatorio simple para seleccionar 30 casillas.
-\end{enumerate}
-
-Realice la comparación de los tres diseños a partir de simulaciones. Es
-decir, repita 1000 veces lo siguiente. Seleccione una muestra con cada
-diseño y realice la estimación, en este caso deberá usar un estimador de
-razón.
-
-A partir de las 1000 estimaciones estime el ECM del estimador que se
-obtendría para cada diseño y con estos resultados indique cuál diseño
-parece ser el mejor.
-
-Para resolver este problema optamos por resolver manualmente debido a
-que con sampling(strata, stage) y survey, se tardaba demasiado tiempo.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# libreria para limpiar la base de datos}
-\KeywordTok{library}\NormalTok{(tidyverse)}
-
-\CommentTok{# leer el csv}
-\KeywordTok{setwd}\NormalTok{(}\StringTok{"D:/Notas/Muestreo/Exámen/examen02/20210611_1000_CW_diputaciones"}\NormalTok{)}
-\KeywordTok{options}\NormalTok{(}\DataTypeTok{digits=}\DecValTok{10}\NormalTok{)}
-\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
-
-
-\NormalTok{df <-}\StringTok{ }\NormalTok{data.table}\OperatorTok{::}\KeywordTok{fread}\NormalTok{(}\StringTok{"diputaciones - copia.csv"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{"|"}\NormalTok{)}
-\CommentTok{# para el INE 34. TOTAL_VOTOS_CALCULADOS -  Suma de los votos asentados en las}
-\CommentTok{# actas para: los partidos políticos, combinaciones de estos, candidatos }
-\CommentTok{# independientes, votos para candidaturas no registradas y votos nulos. }
-
-\CommentTok{# como solo nos interesa el porcentaje sobre la gente que no registro voto nulo}
-\CommentTok{# entonces los restamos}
-\CommentTok{# y solo nos interesa las casillas donde si hubo votaciones}
-\NormalTok{df <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(df, TOTAL_VOTOS_CALCULADOS }\OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{)}
-\NormalTok{df <-}\StringTok{ }\NormalTok{df }\OperatorTok{%>%}\KeywordTok{drop_na}\NormalTok{(TOTAL_VOTOS_CALCULADOS)}
-\NormalTok{df <-}\StringTok{ }\NormalTok{df }\OperatorTok{%>%}\KeywordTok{drop_na}\NormalTok{(}\StringTok{`}\DataTypeTok{VOTOS NULOS}\StringTok{`}\NormalTok{)}
-\NormalTok{df}\OperatorTok{$}\NormalTok{totalvotos =}\StringTok{ }\NormalTok{df}\OperatorTok{$}\NormalTok{TOTAL_VOTOS_CALCULADOS }\OperatorTok{-}\StringTok{ }\NormalTok{df}\OperatorTok{$}\StringTok{`}\DataTypeTok{VOTOS NULOS}\StringTok{`}
-\NormalTok{df <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(df, totalvotos }\OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{)}
-
-\CommentTok{# el número total de casilla sobre el que vamos a trabajr}
-\NormalTok{N <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(df)[}\DecValTok{1}\NormalTok{]}
-\CommentTok{# tamaño de muestra}
-\NormalTok{n <-}\StringTok{ }\DecValTok{1200}
-
-\CommentTok{# datos que nos interesan}
-\NormalTok{midf <-}\StringTok{ }\NormalTok{df[, }\KeywordTok{c}\NormalTok{(}\StringTok{"MORENA"}\NormalTok{, }\StringTok{"PVEM"}\NormalTok{, }\StringTok{"PT"}\NormalTok{, }\StringTok{"PT-MORENA"}\NormalTok{,}
-               \StringTok{"PVEM-PT"}\NormalTok{, }\StringTok{"PVEM-MORENA"}\NormalTok{, }\StringTok{"PVEM-PT-MORENA"}\NormalTok{, }\StringTok{"totalvotos"}\NormalTok{)]}
-\CommentTok{# calculamos los votos a favor}
-\NormalTok{midf}\OperatorTok{$}\NormalTok{votos.favor =}\StringTok{ }\KeywordTok{apply}\NormalTok{(midf,}\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) (}\KeywordTok{sum}\NormalTok{(x)}\OperatorTok{-}\StringTok{ }\NormalTok{x[}\KeywordTok{length}\NormalTok{(x)]))}
-
-\CommentTok{# resultado a estimar}
-\NormalTok{prct.votos <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(midf}\OperatorTok{$}\NormalTok{votos.favor)}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(midf}\OperatorTok{$}\NormalTok{totalvotos)}\OperatorTok{*}\DecValTok{100}
-\NormalTok{prct.votos}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 44.28523292
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# pesos para el mas}
-\NormalTok{midf}\OperatorTok{$}\NormalTok{wk.mas =}\StringTok{ }\NormalTok{N}\OperatorTok{/}\NormalTok{n}
-
-
-\NormalTok{diseno.mas <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-  \CommentTok{#seleccionamos muestra}
-\NormalTok{  seleccion_muestra <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{N ,}\DataTypeTok{size =} \DecValTok{1200}\NormalTok{)}
-  
-  \CommentTok{#estimamos con el estimador de razon de la media}
-\NormalTok{  muestra <-}\StringTok{ }\NormalTok{midf[seleccion_muestra, ]}
-  \KeywordTok{return}\NormalTok{(}\KeywordTok{sum}\NormalTok{(muestra}\OperatorTok{$}\NormalTok{votos.favor}\OperatorTok{*}\NormalTok{muestra}\OperatorTok{$}\NormalTok{wk.mas)}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(muestra}\OperatorTok{$}\NormalTok{totalvotos}\OperatorTok{*}\NormalTok{muestra}\OperatorTok{$}\NormalTok{wk.mas))}
-\NormalTok{\}}
-
-\NormalTok{simulacion.mas <-}\StringTok{ }\KeywordTok{replicate}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\KeywordTok{diseno.mas}\NormalTok{())}
-\KeywordTok{mean}\NormalTok{(simulacion.mas)}\OperatorTok{*}\DecValTok{100}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 44.30034631
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# #estratos}
-\NormalTok{df}\OperatorTok{$}\NormalTok{distritoelec <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(df}\OperatorTok{$}\NormalTok{ID_ESTADO, df}\OperatorTok{$}\NormalTok{ID_DISTRITO, df}\OperatorTok{$}\NormalTok{NOMBRE_DISTRITO, }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{)}
-\CommentTok{# revisamos el tamaño deben ser  300 unicos}
-\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(df}\OperatorTok{$}\NormalTok{distritoelec))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 300
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{midf2 <-}\StringTok{ }\NormalTok{df[, }\KeywordTok{c}\NormalTok{(}\StringTok{"distritoelec"}\NormalTok{, }\StringTok{"totalvotos"}\NormalTok{)]}
-\NormalTok{midf2}\OperatorTok{$}\NormalTok{votos.favor <-}\StringTok{ }\NormalTok{midf}\OperatorTok{$}\NormalTok{votos.favor}
-
-\CommentTok{# otorgamos id a cada distrito}
-\NormalTok{iddistrito =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{300}
-\NormalTok{distritoelec =}\StringTok{ }\KeywordTok{unique}\NormalTok{(df}\OperatorTok{$}\NormalTok{distritoelec)}
-\NormalTok{idsdist <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(iddistrito, distritoelec)}
-\NormalTok{midf2 <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(midf2, idsdist)}
-
-\CommentTok{# calculo de las probabilidades de inclusión para todos los elementos}
-\NormalTok{prob.inc <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(midf2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(iddistrito) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{())}
-\NormalTok{prob.inc}\OperatorTok{$}\NormalTok{wk <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{4}\OperatorTok{/}\NormalTok{prob.inc}\OperatorTok{$}\NormalTok{n)}
-
-\NormalTok{midf2 <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(midf2, prob.inc, }\DataTypeTok{by=}\StringTok{"iddistrito"}\NormalTok{)}
-
-\CommentTok{# creamos un subid (id dentro del distrito electoral)}
-\NormalTok{subid <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{300}\NormalTok{)\{}
-\NormalTok{  s0 =}\StringTok{ }\NormalTok{midf2}\OperatorTok{$}\NormalTok{distritoelec[midf2}\OperatorTok{$}\NormalTok{iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i]}
-\NormalTok{  subid =}\StringTok{ }\KeywordTok{c}\NormalTok{(subid, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(s0))}
-\NormalTok{\}}
-\NormalTok{midf2}\OperatorTok{$}\NormalTok{subid <-}\StringTok{ }\NormalTok{subid}
-
-\CommentTok{# creamos un id único en toda la  ppoblacion}
-\NormalTok{midf2}\OperatorTok{$}\NormalTok{idun <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(midf2}\OperatorTok{$}\NormalTok{iddistrito, midf2}\OperatorTok{$}\NormalTok{subid, }\DataTypeTok{sep =} \StringTok{"-"}\NormalTok{)}
-
-
-\CommentTok{# observemos que esta es la función que se repitara 1000 vveces para la simulación}
-\CommentTok{# lo que reduce el tiempo de ejecución}
-\NormalTok{disenost <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-  \CommentTok{#seleccionamos muestra con base en el iduniico}
-\NormalTok{  idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{300}\NormalTok{) \{}
-\NormalTok{    idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{(idun, }\KeywordTok{paste}\NormalTok{(i, }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{prob.inc}\OperatorTok{$}\NormalTok{n[i], }\DataTypeTok{size =} \DecValTok{4}\NormalTok{), }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{))}
-\NormalTok{  \}}
-\NormalTok{  seleccion <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(idun)}
-  \CommentTok{#obtenemos los datos de la muestra}
-\NormalTok{  muestra <-}\StringTok{ }\KeywordTok{left_join}\NormalTok{(seleccion, midf2, }\DataTypeTok{by =} \StringTok{"idun"}\NormalTok{)}
-  
-  \CommentTok{#esimaciones}
-  \KeywordTok{return}\NormalTok{(}\KeywordTok{sum}\NormalTok{(muestra}\OperatorTok{$}\NormalTok{votos.favor}\OperatorTok{*}\NormalTok{muestra}\OperatorTok{$}\NormalTok{wk)}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(muestra}\OperatorTok{$}\NormalTok{totalvotos}\OperatorTok{*}\NormalTok{muestra}\OperatorTok{$}\NormalTok{wk))}
-\NormalTok{\}}
-\NormalTok{simulacion.estr <-}\StringTok{ }\KeywordTok{replicate}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\KeywordTok{disenost}\NormalTok{())}
-\KeywordTok{mean}\NormalTok{(simulacion.estr)}\OperatorTok{*}\DecValTok{100}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 44.27721997
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# trabjaremos con un dataframe con la siguiente}
-\NormalTok{midf3 <-}\StringTok{ }\NormalTok{df[, }\KeywordTok{c}\NormalTok{(}\StringTok{"NOMBRE_ESTADO"}\NormalTok{, }\StringTok{"NOMBRE_DISTRITO"}\NormalTok{, }\StringTok{"ID_DISTRITO"}\NormalTok{, }\StringTok{"ID_ESTADO"}\NormalTok{,}
-                \StringTok{"distritoelec"}\NormalTok{, }\StringTok{"totalvotos"}\NormalTok{)]}
-\CommentTok{# recuperamos las estimaciones hechas anteriormente }
-\NormalTok{midf3}\OperatorTok{$}\NormalTok{votos.favor <-}\StringTok{ }\NormalTok{midf}\OperatorTok{$}\NormalTok{votos.favor}
-
-\CommentTok{# asignamos circunscripciones con respecto a los estados}
-\NormalTok{circ <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }
-          \DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)}
-\CommentTok{# recuperamos los nombres de los estados y hacemos un dataframe con los estados}
-\CommentTok{# y circunscripciones}
-\NormalTok{NOMBRE_ESTADO <-}\StringTok{ }\KeywordTok{unique}\NormalTok{(df}\OperatorTok{$}\NormalTok{NOMBRE_ESTADO)}
-\NormalTok{circdf <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(circ, NOMBRE_ESTADO)}
-\CommentTok{# unimos los dataframes y ahora tenemos la circunscripcion en el dataframe}
-\NormalTok{midf3 <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(circdf, midf3, }\DataTypeTok{by=}\StringTok{"NOMBRE_ESTADO"}\NormalTok{)}
-
-
-\CommentTok{# otorgamos id unico a cada distrito}
-\NormalTok{iddistrito =}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{300}
-\NormalTok{distritoelec =}\StringTok{ }\KeywordTok{unique}\NormalTok{(df}\OperatorTok{$}\NormalTok{distritoelec)}
-\NormalTok{idsdist <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(iddistrito, distritoelec)}
-\NormalTok{midf3 <-}\StringTok{ }\KeywordTok{merge}\NormalTok{(midf3, idsdist)}
-
-\CommentTok{#agrupara cada estrato (hacemos un dataframe para cada circunscripción)}
-\NormalTok{circ1 <-}\StringTok{ }\NormalTok{midf3 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(circ }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}
-\NormalTok{circ2 <-}\StringTok{ }\NormalTok{midf3 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(circ }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{)}
-\NormalTok{circ3 <-}\StringTok{ }\NormalTok{midf3 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(circ }\OperatorTok{==}\StringTok{ }\DecValTok{3}\NormalTok{)}
-\NormalTok{circ4 <-}\StringTok{ }\NormalTok{midf3 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(circ }\OperatorTok{==}\StringTok{ }\DecValTok{4}\NormalTok{)}
-\NormalTok{circ5 <-}\StringTok{ }\NormalTok{midf3 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(circ }\OperatorTok{==}\StringTok{ }\DecValTok{5}\NormalTok{)}
-
-\CommentTok{# ahora a cada circunscripción le calcularemos cuantas casillas casillas le }
-\CommentTok{# pertencecen, tambien un sub-id (que sera un id dentro de cada distrito), }
-\CommentTok{# vector que guardara los subids}
-\NormalTok{subid <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\CommentTok{# vector que guardara cuantas casillas le pertencen a cada distrito}
-\NormalTok{npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{unique}\NormalTok{(circ1}\OperatorTok{$}\NormalTok{iddistrito))\{}
-  \CommentTok{# selecionamos distritos únicos por cirscunscripción }
-\NormalTok{  s0 =}\StringTok{ }\NormalTok{circ1}\OperatorTok{$}\NormalTok{distritoelec[circ1}\OperatorTok{$}\NormalTok{iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i]}
-  \CommentTok{# agregamos el subid}
-\NormalTok{  subid =}\StringTok{ }\KeywordTok{c}\NormalTok{(subid, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(s0))}
-  \CommentTok{# total de casillas que le pertencen al distrito}
-\NormalTok{  npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{(npob, }\KeywordTok{rep}\NormalTok{(}\KeywordTok{length}\NormalTok{(s0), }\KeywordTok{length}\NormalTok{(s0)))}
-\NormalTok{\}}
-\CommentTok{# agregamos los resultados anteriores al dataframe}
-\NormalTok{circ1}\OperatorTok{$}\NormalTok{subid <-}\StringTok{ }\NormalTok{subid}
-\NormalTok{circ1}\OperatorTok{$}\NormalTok{npob <-}\StringTok{ }\NormalTok{npob}
-\CommentTok{# calculamos los pesos para cada casilla}
-\NormalTok{circ1}\OperatorTok{$}\NormalTok{wk <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{8}\OperatorTok{/}\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ1}\OperatorTok{$}\NormalTok{iddistrito))}\OperatorTok{*}\DecValTok{30}\OperatorTok{/}\NormalTok{circ1}\OperatorTok{$}\NormalTok{npob)}
-\CommentTok{# creamos un idunico para cada casilla con base en iddistrito y subid}
-\NormalTok{circ1}\OperatorTok{$}\NormalTok{idun <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(circ1}\OperatorTok{$}\NormalTok{iddistrito, circ1}\OperatorTok{$}\NormalTok{subid, }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{)}
-\CommentTok{# relaciona el numero de distrito con el numero de casillas}
-\NormalTok{prob.c1 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(circ1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(iddistrito) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{())}
-\CommentTok{#repetimos este proceso para cada circunscripción}
-
-\CommentTok{#circunscripción 2}
-\NormalTok{subid <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\NormalTok{npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{unique}\NormalTok{(circ2}\OperatorTok{$}\NormalTok{iddistrito))\{}
-\NormalTok{  s0 =}\StringTok{ }\NormalTok{circ2}\OperatorTok{$}\NormalTok{distritoelec[circ2}\OperatorTok{$}\NormalTok{iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i]}
-\NormalTok{  subid =}\StringTok{ }\KeywordTok{c}\NormalTok{(subid, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(s0))}
-\NormalTok{  npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{(npob, }\KeywordTok{rep}\NormalTok{(}\KeywordTok{length}\NormalTok{(s0), }\KeywordTok{length}\NormalTok{(s0)))}
-\NormalTok{\}}
-\NormalTok{circ2}\OperatorTok{$}\NormalTok{subid <-}\StringTok{ }\NormalTok{subid}
-\NormalTok{circ2}\OperatorTok{$}\NormalTok{npob <-}\StringTok{ }\NormalTok{npob}
-\NormalTok{circ2}\OperatorTok{$}\NormalTok{wk <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{8}\OperatorTok{/}\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ2}\OperatorTok{$}\NormalTok{iddistrito))}\OperatorTok{*}\DecValTok{30}\OperatorTok{/}\NormalTok{circ2}\OperatorTok{$}\NormalTok{npob)}
-\NormalTok{prob.c2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(circ2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(iddistrito) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{())}
-\NormalTok{circ2}\OperatorTok{$}\NormalTok{idun <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(circ2}\OperatorTok{$}\NormalTok{iddistrito, circ2}\OperatorTok{$}\NormalTok{subid, }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{)}
-
-\CommentTok{# circunscripción 3}
-\NormalTok{subid <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\NormalTok{npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{unique}\NormalTok{(circ3}\OperatorTok{$}\NormalTok{iddistrito))\{}
-\NormalTok{  s0 =}\StringTok{ }\NormalTok{circ3}\OperatorTok{$}\NormalTok{distritoelec[circ3}\OperatorTok{$}\NormalTok{iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i]}
-\NormalTok{  subid =}\StringTok{ }\KeywordTok{c}\NormalTok{(subid, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(s0))}
-\NormalTok{  npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{(npob, }\KeywordTok{rep}\NormalTok{(}\KeywordTok{length}\NormalTok{(s0), }\KeywordTok{length}\NormalTok{(s0)))}
-\NormalTok{\}}
-\NormalTok{circ3}\OperatorTok{$}\NormalTok{subid <-}\StringTok{ }\NormalTok{subid}
-\NormalTok{circ3}\OperatorTok{$}\NormalTok{npob <-}\StringTok{ }\NormalTok{npob}
-\NormalTok{circ3}\OperatorTok{$}\NormalTok{wk <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{8}\OperatorTok{/}\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ3}\OperatorTok{$}\NormalTok{iddistrito))}\OperatorTok{*}\DecValTok{30}\OperatorTok{/}\NormalTok{circ3}\OperatorTok{$}\NormalTok{npob)}
-\NormalTok{prob.c3 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(circ3 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(iddistrito) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{())}
-\NormalTok{circ3}\OperatorTok{$}\NormalTok{idun <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(circ3}\OperatorTok{$}\NormalTok{iddistrito, circ3}\OperatorTok{$}\NormalTok{subid, }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{)}
-
-\CommentTok{# circunscripcion 4}
-\NormalTok{subid <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\NormalTok{npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{unique}\NormalTok{(circ4}\OperatorTok{$}\NormalTok{iddistrito))\{}
-\NormalTok{  s0 =}\StringTok{ }\NormalTok{circ4}\OperatorTok{$}\NormalTok{distritoelec[circ4}\OperatorTok{$}\NormalTok{iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i]}
-\NormalTok{  subid =}\StringTok{ }\KeywordTok{c}\NormalTok{(subid, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(s0))}
-\NormalTok{  npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{(npob, }\KeywordTok{rep}\NormalTok{(}\KeywordTok{length}\NormalTok{(s0), }\KeywordTok{length}\NormalTok{(s0)))}
-\NormalTok{\}}
-\NormalTok{circ4}\OperatorTok{$}\NormalTok{subid <-}\StringTok{ }\NormalTok{subid}
-\NormalTok{circ4}\OperatorTok{$}\NormalTok{npob <-}\StringTok{ }\NormalTok{npob}
-\NormalTok{circ4}\OperatorTok{$}\NormalTok{wk <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{8}\OperatorTok{/}\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ4}\OperatorTok{$}\NormalTok{iddistrito))}\OperatorTok{*}\DecValTok{30}\OperatorTok{/}\NormalTok{circ4}\OperatorTok{$}\NormalTok{npob)}
-\NormalTok{prob.c4 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(circ4 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(iddistrito) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{())}
-\NormalTok{circ4}\OperatorTok{$}\NormalTok{idun <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(circ4}\OperatorTok{$}\NormalTok{iddistrito, circ4}\OperatorTok{$}\NormalTok{subid, }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{)}
-
-\CommentTok{# circunscripcion 5}
-\NormalTok{subid <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\NormalTok{npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{unique}\NormalTok{(circ5}\OperatorTok{$}\NormalTok{iddistrito))\{}
-\NormalTok{  s0 =}\StringTok{ }\NormalTok{circ5}\OperatorTok{$}\NormalTok{distritoelec[circ5}\OperatorTok{$}\NormalTok{iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i]}
-\NormalTok{  subid =}\StringTok{ }\KeywordTok{c}\NormalTok{(subid, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(s0))}
-\NormalTok{  npob <-}\StringTok{ }\KeywordTok{c}\NormalTok{(npob, }\KeywordTok{rep}\NormalTok{(}\KeywordTok{length}\NormalTok{(s0), }\KeywordTok{length}\NormalTok{(s0)))}
-\NormalTok{\}}
-\NormalTok{circ5}\OperatorTok{$}\NormalTok{subid <-}\StringTok{ }\NormalTok{subid}
-\NormalTok{circ5}\OperatorTok{$}\NormalTok{npob <-}\StringTok{ }\NormalTok{npob}
-\NormalTok{circ5}\OperatorTok{$}\NormalTok{wk <-}\StringTok{ }\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{8}\OperatorTok{/}\KeywordTok{length}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ5}\OperatorTok{$}\NormalTok{iddistrito))}\OperatorTok{*}\DecValTok{30}\OperatorTok{/}\NormalTok{circ5}\OperatorTok{$}\NormalTok{npob)}
-\NormalTok{prob.c5 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(circ5 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(iddistrito) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{count}\NormalTok{())}
-\NormalTok{circ5}\OperatorTok{$}\NormalTok{idun <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(circ5}\OperatorTok{$}\NormalTok{iddistrito, circ5}\OperatorTok{$}\NormalTok{subid, }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{)}
-
-
-
-\NormalTok{diseno.est.c1 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-  \CommentTok{# seleccionamos 8 distritos de la circunscripción}
-\NormalTok{  seleccion <-}\StringTok{  }\KeywordTok{sample}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ1}\OperatorTok{$}\NormalTok{iddistrito), }\DataTypeTok{size=}\DecValTok{8}\NormalTok{)}
-  \CommentTok{# aquí guardaremos el idunico de las casillas seleccions en la muestra}
-\NormalTok{  idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-  \CommentTok{# para cada distrito de los 8 seleccionados}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ seleccion) \{}
-    \CommentTok{# vemos cuantas casillas le pertenecen}
-\NormalTok{    iddist <-}\StringTok{ }\NormalTok{prob.c1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i)}
-    \CommentTok{# y seleccionamos 30 elemento con un m.a.s.}
-\NormalTok{    idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{(idun, }\KeywordTok{paste}\NormalTok{(i, }\KeywordTok{sample}\NormalTok{(iddist}\OperatorTok{$}\NormalTok{n, }\DataTypeTok{size =} \DecValTok{30}\NormalTok{), }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{))}
-\NormalTok{  \}}
-  \CommentTok{#obtenemos los datos de la muestra}
-\NormalTok{  muestra.c1 <-}\StringTok{ }\KeywordTok{left_join}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(idun), circ1, }\DataTypeTok{by =} \StringTok{"idun"}\NormalTok{)}
-  \CommentTok{# recuperamos la muestra de esta circunscripción}
-  \KeywordTok{return}\NormalTok{(muestra.c1)}
-\NormalTok{\}}
-\CommentTok{# de manera analoga para el resto de circunscripciones}
-
-\CommentTok{#circunscripcion 2}
-\NormalTok{diseno.est.c2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-\NormalTok{  seleccion <-}\StringTok{  }\KeywordTok{sample}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ2}\OperatorTok{$}\NormalTok{iddistrito), }\DataTypeTok{size=}\DecValTok{8}\NormalTok{)}
-\NormalTok{  idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ seleccion) \{}
-\NormalTok{    iddist <-}\StringTok{ }\NormalTok{prob.c2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i)}
-\NormalTok{    idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{(idun, }\KeywordTok{paste}\NormalTok{(i, }\KeywordTok{sample}\NormalTok{(iddist}\OperatorTok{$}\NormalTok{n, }\DataTypeTok{size =} \DecValTok{30}\NormalTok{), }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{))}
-\NormalTok{  \}}
-\NormalTok{  muestra.c2 <-}\StringTok{ }\KeywordTok{left_join}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(idun), circ2, }\DataTypeTok{by =} \StringTok{"idun"}\NormalTok{)}
-  
-  \KeywordTok{return}\NormalTok{(muestra.c2)}
-\NormalTok{\}}
-
-\CommentTok{#circunscrición 3}
-\NormalTok{diseno.est.c3 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-\NormalTok{  seleccion <-}\StringTok{  }\KeywordTok{sample}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ3}\OperatorTok{$}\NormalTok{iddistrito), }\DataTypeTok{size=}\DecValTok{8}\NormalTok{)}
-\NormalTok{  idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ seleccion) \{}
-\NormalTok{    iddist <-}\StringTok{ }\NormalTok{prob.c3 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i)}
-\NormalTok{    idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{(idun, }\KeywordTok{paste}\NormalTok{(i, }\KeywordTok{sample}\NormalTok{(iddist}\OperatorTok{$}\NormalTok{n, }\DataTypeTok{size =} \DecValTok{30}\NormalTok{), }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{))}
-\NormalTok{  \}}
-\NormalTok{  muestra.c3 <-}\StringTok{ }\KeywordTok{left_join}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(idun), circ3, }\DataTypeTok{by =} \StringTok{"idun"}\NormalTok{)}
-  
-  \KeywordTok{return}\NormalTok{(muestra.c3)}
-\NormalTok{\}}
-
-\CommentTok{#circunscripción 4}
-\NormalTok{diseno.est.c4 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-\NormalTok{  seleccion <-}\StringTok{  }\KeywordTok{sample}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ4}\OperatorTok{$}\NormalTok{iddistrito), }\DataTypeTok{size=}\DecValTok{8}\NormalTok{)}
-\NormalTok{  idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ seleccion) \{}
-\NormalTok{    iddist <-}\StringTok{ }\NormalTok{prob.c4 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i)}
-\NormalTok{    idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{(idun, }\KeywordTok{paste}\NormalTok{(i, }\KeywordTok{sample}\NormalTok{(iddist}\OperatorTok{$}\NormalTok{n, }\DataTypeTok{size =} \DecValTok{30}\NormalTok{), }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{))}
-\NormalTok{  \}}
-\NormalTok{  muestra.c4 <-}\StringTok{ }\KeywordTok{left_join}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(idun), circ4, }\DataTypeTok{by =} \StringTok{"idun"}\NormalTok{)}
-  
-  \KeywordTok{return}\NormalTok{(muestra.c4)}
-\NormalTok{\}}
-
-
-\CommentTok{#circunscripción 5}
-\NormalTok{diseno.est.c5 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-\NormalTok{  seleccion <-}\StringTok{  }\KeywordTok{sample}\NormalTok{(}\KeywordTok{unique}\NormalTok{(circ5}\OperatorTok{$}\NormalTok{iddistrito), }\DataTypeTok{size=}\DecValTok{8}\NormalTok{)}
-\NormalTok{  idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ seleccion) \{}
-\NormalTok{    iddist <-}\StringTok{ }\NormalTok{prob.c5 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(iddistrito }\OperatorTok{==}\StringTok{ }\NormalTok{i)}
-\NormalTok{    idun <-}\StringTok{ }\KeywordTok{c}\NormalTok{(idun, }\KeywordTok{paste}\NormalTok{(i, }\KeywordTok{sample}\NormalTok{(iddist}\OperatorTok{$}\NormalTok{n, }\DataTypeTok{size =} \DecValTok{30}\NormalTok{), }\DataTypeTok{sep=}\StringTok{"-"}\NormalTok{))}
-\NormalTok{  \}}
-  \CommentTok{#obtenemos los datos de la muestra}
-\NormalTok{  muestra.c5 <-}\StringTok{ }\KeywordTok{left_join}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(idun), circ5, }\DataTypeTok{by =} \StringTok{"idun"}\NormalTok{)}
-  
-  \KeywordTok{return}\NormalTok{(muestra.c5)}
-\NormalTok{\}}
-
-\NormalTok{diseno.circs <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
-\NormalTok{  c1 <-}\StringTok{ }\KeywordTok{diseno.est.c1}\NormalTok{()}
-\NormalTok{  c2 <-}\StringTok{ }\KeywordTok{diseno.est.c2}\NormalTok{()}
-\NormalTok{  c3 <-}\StringTok{ }\KeywordTok{diseno.est.c3}\NormalTok{()}
-\NormalTok{  c4 <-}\StringTok{ }\KeywordTok{diseno.est.c4}\NormalTok{()}
-\NormalTok{  c5 <-}\StringTok{ }\KeywordTok{diseno.est.c5}\NormalTok{()}
-  
-\NormalTok{  muestra.circs <-}\StringTok{ }\KeywordTok{union}\NormalTok{(c1,c2)}
-\NormalTok{  muestra.circs <-}\StringTok{ }\KeywordTok{union}\NormalTok{(muestra.circs,c3)}
-\NormalTok{  muestra.circs <-}\StringTok{ }\KeywordTok{union}\NormalTok{(muestra.circs,c4)}
-\NormalTok{  muestra.circs <-}\StringTok{ }\KeywordTok{union}\NormalTok{(muestra.circs,c5)}
-  
-  \KeywordTok{return}\NormalTok{(}\KeywordTok{sum}\NormalTok{(muestra.circs}\OperatorTok{$}\NormalTok{votos.favor}\OperatorTok{*}\NormalTok{muestra.circs}\OperatorTok{$}\NormalTok{wk)}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(muestra.circs}\OperatorTok{$}\NormalTok{totalvotos}\OperatorTok{*}\NormalTok{muestra.circs}\OperatorTok{$}\NormalTok{wk))}
-\NormalTok{\}}
-
-\NormalTok{simulacion.circs <-}\StringTok{ }\KeywordTok{replicate}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\KeywordTok{diseno.circs}\NormalTok{())}
-\KeywordTok{mean}\NormalTok{(simulacion.circs)}\OperatorTok{*}\DecValTok{100}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 44.26977854
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# ahora calculamos los errores cuadráticos medios de cada diseño}
-
-\CommentTok{# del diseño 1}
-\KeywordTok{mean}\NormalTok{((}\DecValTok{100}\OperatorTok{*}\NormalTok{simulacion.mas }\OperatorTok{-}\StringTok{ }\NormalTok{prct.votos)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.2990906677
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# del diseño 2}
-\KeywordTok{mean}\NormalTok{((}\DecValTok{100}\OperatorTok{*}\NormalTok{simulacion.estr }\OperatorTok{-}\StringTok{ }\NormalTok{prct.votos)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 0.1342909203
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# del diseño 3}
-\KeywordTok{mean}\NormalTok{((}\DecValTok{100}\OperatorTok{*}\NormalTok{simulacion.circs }\OperatorTok{-}\StringTok{ }\NormalTok{prct.votos)}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] 2.842545481
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{hist}\NormalTok{(}\DecValTok{100}\OperatorTok{*}\NormalTok{simulacion.mas, }\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{breaks =} \DecValTok{50}\NormalTok{, }
-     \DataTypeTok{main =} \StringTok{"Simulación muestro aleatorio simple"}\NormalTok{,}
-     \DataTypeTok{xlab =} \StringTok{"Porcentaje de votos a favor"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Frecuencia relativa"}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v =}\NormalTok{ prct.votos, }\DataTypeTok{add =}\NormalTok{ T, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{ex-03_files/figure-latex/unnamed-chunk-10-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{hist}\NormalTok{(}\DecValTok{100}\OperatorTok{*}\NormalTok{simulacion.estr, }\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{breaks =} \DecValTok{50}\NormalTok{, }
-     \DataTypeTok{main =} \StringTok{"Simulación muestro estratificado"}\NormalTok{,}
-     \DataTypeTok{xlab =} \StringTok{"Porcentaje votos a favor"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Frecuencia relativa"}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v =}\NormalTok{ prct.votos, }\DataTypeTok{add =}\NormalTok{ T, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{ex-03_files/figure-latex/unnamed-chunk-10-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{hist}\NormalTok{(}\DecValTok{100}\OperatorTok{*}\NormalTok{simulacion.circs, }\DataTypeTok{freq =}\NormalTok{ F, }\DataTypeTok{breaks =} \DecValTok{50}\NormalTok{,}
-     \DataTypeTok{main =} \StringTok{"Simulacion muestreo estratificado y bietápico"}\NormalTok{,}
-     \DataTypeTok{xlab =} \StringTok{"Porcentaje votos a favor"}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{"Frecuencia relativa"}\NormalTok{)}
-\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v =}\NormalTok{ prct.votos, }\DataTypeTok{add =}\NormalTok{ T, }\DataTypeTok{col=}\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{ex-03_files/figure-latex/unnamed-chunk-10-3.pdf} De lo
-anterior vemos que el diseño que mejor funciona es el diseño dos, esto
-es porque a cada distrito le estamos tomando muestra, a diferencia del
-diseño tres donde solo le tomamos muestra a 40 de 300 distritos, esto
-hace que sea el peor, sin embargo en cuestiones de costo, puede llegar a
-ser el más económico, finalmente el diseño que esta en medio es el
-aleatorio simple.
 
 \hypertarget{estimaciuxf3n-buxe1sica-de-una-encuesta-con-diseuxf1o-multietuxe1pico}{%
 \subsection{3 Estimación básica de una encuesta con diseño
 multietápico}\label{estimaciuxf3n-buxe1sica-de-una-encuesta-con-diseuxf1o-multietuxe1pico}}
 
-Considere la Encuesta Nacional de Vivienda (ENVI) 2020
+Considerando la Encuesta Nacional de Vivienda (ENVI) 2020
 
 \url{https://www.inegi.org.mx/programas/envi/2020/}
 
-Suponga que será el encargado de generar los resultados básicos
+Se quiere generar los resultados básicos
 presentados en el tabulado llamado Cuadro 5.1, ver Figura \ref{Envi2020}
 (\url{https://www.inegi.org.mx/contenidos/programas/envi/2020/tabulados/envi_2020_tema_05_xlsx.zip})
 
-En particular realice lo siguiente
+En éste proyecto se busca:
 
 \begin{enumerate}
 \def\labelenumi{\roman{enumi}.}
 \tightlist
 \item
-  Describa brevemente el diseño de muestreo usado en la encuesta. Es
-  decir, si es muestreo aleatorio simple, tiene estratificación, es por
-  conglomerados, etc.
-\end{enumerate}
-
-Se usó un diseño probabilístico, cuyo diseño muestral fue bietápico,
-donde en la primera etapa se usó un diseño de muestreo estratificado y
-en la segunda etapa un diseño de muestreo por conglomerados.
-
-\begin{enumerate}
-\def\labelenumi{\roman{enumi}.}
-\tightlist
+  Describir brevemente el diseño de muestreo usado en la encuesta.
+%\begin{enumerate}
+%\def\labelenumi{\roman{enumi}.}
+%\tightlist
 \item
-  Identifique las variables asociadas al diseño de muestreo que están
+  Identificar las variables asociadas al diseño de muestreo que están
   presentes en la base de datos a usar (THOGAR en
   \url{https://www.inegi.org.mx/programas/envi/2020/\#Microdatos})
 \item
-  Identifique la pregunta y variable asociada a la identificación de los
+  Identificar la pregunta y variable asociada a la identificación de los
   Hogares con necesidad de rentar, comprar o construir una vivienda
   independiente de la que habitan.
 \item
-  Con esta información, estime el número total de hogares y el
-  porcentaje de hogares que tienen una necesidad de vivienda a nivel
-  nacional y por entidad federativa.
+  Estimar el número total de hogares y el porcentaje de hogares que tienen una necesidad de vivienda a nivel nacional y por entidad federativa.
 \item
-  Calcule intervalos de confianza para los parámetros estimados en el
-  inciso anterior. Comente sobre los resultados obtenidos.
-\item
-  \textbf{Punto extra opcional}. Considerando el porcentaje de hogares
-  que tienen una necesidad de vivienda por entidad federativa, realice
-  un mapa de calor (Geographic Heat Map) y comente los resultados.
+  Calcular intervalos de confianza para los parámetros estimados en el inciso anterior.
+%\item
+%   Considerar el porcentaje de hogares que tienen una necesidad de vivienda por entidad federativa, realizar un mapa de calor (Geographic Heat Map).
 \end{enumerate}
+
+El código del proyecto se encuentra en \href{https://github.com/arriagajorge/diseno-multietapico-survey}{https://github.com/arriagajorge/diseno-multietapico-survey}.
 
 \begin{figure}[H]
 \centering
@@ -861,10 +186,15 @@ en la segunda etapa un diseño de muestreo por conglomerados.
     \label{Pregunta de interés}
 \end{figure}
 
+Se usó un diseño probabilístico, cuyo diseño muestral fue bietápico,
+donde en la primera etapa se usó un diseño de muestreo estratificado y
+en la segunda etapa un diseño de muestreo por conglomerados.
+
+A continuación se muestra el código en \texttt{R}, usado para replicar los resultados.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# leemos la base de datos}
-\KeywordTok{setwd}\NormalTok{(}\StringTok{"D:/Notas/Muestreo/Exámen/examen02/Bases de datos"}\NormalTok{)}
+\CommentTok{# leer la base de datos}
 
 \NormalTok{thogar <-}\StringTok{ }\NormalTok{data.table}\OperatorTok{::}\KeywordTok{fread}\NormalTok{(}\StringTok{"THOGAR.csv"}\NormalTok{)}
 
@@ -881,7 +211,7 @@ en la segunda etapa un diseño de muestreo por conglomerados.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# vemos las variables que usaremos en el diseño muestral}
+\CommentTok{# un vistazo a las variables que usaremos en el diseño muestral}
 \KeywordTok{summary}\NormalTok{(thogar[, }\KeywordTok{c}\NormalTok{(}\StringTok{"UPM_DIS"}\NormalTok{, }\StringTok{"EST_DIS"}\NormalTok{, }\StringTok{"FACTOR"}\NormalTok{)])}
 \end{Highlighting}
 \end{Shaded}
@@ -898,7 +228,6 @@ en la segunda etapa un diseño de muestreo por conglomerados.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{#los que si tienen necesidad}
 \CommentTok{# segun la estructura de archivo}
 \CommentTok{# el número 1 corresponde a si tienen necesidad}
 \NormalTok{a <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(thogar}\OperatorTok{$}\NormalTok{P3A1_}\DecValTok{1} \OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)}

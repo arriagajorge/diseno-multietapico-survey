@@ -1,0 +1,291 @@
+---
+title: "Examen 3A"
+author: "Cruz Martínez Ricardo y Vasquez Arriaga Jorge"
+date: ""
+header-includes:
+   - \usepackage[spanish]{babel}
+   - \usepackage[utf8]{inputenc}
+   - \decimalpoint
+   - \usepackage{booktabs}
+   - \usepackage{longtable}
+   - \usepackage{array}
+   - \usepackage{multirow}
+   - \usepackage{wrapfig}
+   - \usepackage{float}
+   - \usepackage{colortbl}
+   - \usepackage{pdflscape}
+   - \usepackage{tabu}
+   - \usepackage{threeparttable}
+   - \usepackage{threeparttablex}
+   - \usepackage[normalem]{ulem}
+   - \usepackage{makecell}
+   - \usepackage{xcolor}
+   - \usepackage{fancyhdr}
+   - \usepackage{lastpage}
+output:
+  pdf_document: 
+    keep_tex: yes
+  html_document:
+    df_print: paged
+urlcolor: blue
+---
+```{r setup, include=FALSE}
+rm(list = ls(all.names = TRUE))
+gc()
+#tinytex::install_tinytex()
+library(reticulate)
+knitr::opts_chunk$set(echo = F, warning = F, message = F, error = F, fig.height = 4, fig.width = 8)
+library(xtable)
+library(knitr)
+library(tidyverse)
+library(latex2exp)
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+```
+
+## 1 Estimación básica de una encuesta con diseño multietápico
+
+Considere la Encuesta Nacional de Vivienda (ENVI) 2020
+
+https://www.inegi.org.mx/programas/envi/2020/ 
+
+Suponga que será el encargado de generar los resultados básicos presentados en el tabulado llamado Cuadro 5.1, ver Figura \ref{Envi2020} (https://www.inegi.org.mx/contenidos/programas/envi/2020/tabulados/envi_2020_tema_05_xlsx.zip)
+
+
+En particular realice lo siguiente
+
+i.    Describa brevemente el diseño de muestreo usado en la encuesta. Es decir, si es muestreo aleatorio simple, tiene estratificación, es por conglomerados, etc.
+
+Se usó un diseño probabilístico, cuyo diseño muestral fue bietápico, donde en la primera etapa se usó un diseño de muestreo estratificado y en la segunda etapa un diseño de muestreo por conglomerados.
+
+i.    Identifique las variables asociadas al diseño de muestreo que están presentes en la base de datos a usar (THOGAR en https://www.inegi.org.mx/programas/envi/2020/#Microdatos)
+i.    Identifique la pregunta y variable asociada a la identificación de los Hogares con necesidad de rentar, comprar o construir una vivienda independiente de la que habitan.
+i.    Con esta información, estime el número total de hogares y el porcentaje de hogares que tienen una necesidad de vivienda a nivel nacional y por entidad federativa. 
+i.    Calcule intervalos de confianza para los parámetros estimados en el inciso anterior. Comente sobre los resultados obtenidos.
+i.    **Punto extra opcional**. Considerando el porcentaje de hogares que tienen una necesidad de vivienda por entidad federativa, realice un mapa de calor (Geographic Heat Map) y comente los resultados. 
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=160mm]{images/ENVI2020.png}
+	\caption{Parte del cuadro 5.1 de los resultados de la ENVI 2020}
+	\label{Envi2020}
+\end{figure}
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(survey)
+```
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=160mm]{images/enc.png}
+	\caption{Pregunta de interés, demandas y necesidades de vivienda}
+	\label{Pregunta de interés}
+\end{figure}
+
+```{r, echo=T, cache=TRUE}
+# leemos la base de datos
+setwd("D:/Notas/Muestreo/Exámen/examen02/Bases de datos")
+
+thogar <- data.table::fread("THOGAR.csv")
+
+# P3A1_1 es la variable a la que nos interesa replicar la estimación
+# primero observamos que no hay N.A. por lo cual no es necesario hacer correciones
+thogar2 <- thogar %>% drop_na(P3A1_1)
+length(thogar2$P3A1_1) == length(thogar$P3A1_1)
+
+# vemos las variables que usaremos en el diseño muestral
+summary(thogar[, c("UPM_DIS", "EST_DIS", "FACTOR")])
+
+
+#los que si tienen necesidad
+# segun la estructura de archivo
+# el número 1 corresponde a si tienen necesidad
+a <- sum(thogar$P3A1_1 == 1)
+# el número 2 a los que no
+b <- sum(thogar$P3A1_1 == 2)
+# el número 3 a los que no especificaron
+c <- sum(thogar$P3A1_1 == 9)
+# efectivamente estos son los únicos resultados
+sum(a + b + c) == length(thogar$P3A1_1)
+
+# añadimos estos valores al dataframe
+# los que tienen necesida
+thogar$si <- as.numeric(thogar$P3A1_1 == 1)
+# los que no tienen necesidad
+thogar$no <- as.numeric(thogar$P3A1_1 == 2)
+# los que no especificaran
+thogar$ne <- as.numeric(thogar$P3A1_1 == 9)
+# ocuparemos un vector de unos para calcular el total
+thogar$total <- 1
+
+library(survey)
+# en muchos casos sólo hay una upm en cada estrato, lo que 
+# dificulta la estimación de la varianza por esto ocupamos esta opción
+options(survey.lonely.psu="adjust")
+# usamos nest=TRUE ya que no hay seguridad de que las claves de las UPM son únicas
+
+# definimos el diseño
+dsg.envi <- svydesign(id=~UPM_DIS, strat=~EST_DIS, weight =~FACTOR,
+                      data = thogar, nest=T)
+# summary(dsg.envi)
+
+# guardamos los resultados
+# por nivel nacional
+rel.nac <- svymean(~si + no + ne, dsg.envi)*100
+abs.nac <- svytotal(~si + no + ne, dsg.envi)
+total.nac <- svytotal(~total, dsg.envi)
+
+# por entidadad 
+rel.ent <- svyby(~si +no + ne,~ENT,design=dsg.envi, svymean)
+abs.ent <- svyby(~si+ no + ne,~ENT,design=dsg.envi, svytotal)
+total.ent <- svyby(~total, ~ENT,design=dsg.envi, svytotal)
+
+#anexar los nombres de las entidades (para hacer las tablas)
+entidades=c("AGU", "BCN", "BCS", "CAM", "COA", "COL", "CHP", "CHH", "CMX", 
+            "DUR", "GUA", "GRO", "HID", "JAL", "MEX", "MIC", "MOR", "NAY", "NLE",
+            "OAX", "PUE", "QUE", "ROO", "SLP", "SIN", "SON", "TAB", "TAM", "TLA",
+            "VER", "YUC", "ZAC")
+
+#mostramos los resultados
+```
+```{r, echo=T}
+total.nacdf <- as.data.frame(total.nac)
+colnames(total.nacdf) <- c("total", "se")
+row.names(total.nacdf) <- c("Nivel nacional")
+
+total.entdf <- total.ent[, c("total", "se")]
+row.names(total.entdf) <- entidades
+
+dftotal <- union_all(total.nacdf, total.entdf)
+colnames(dftotal) <- c("Total", "Error estándar")
+
+kbl(dftotal, caption = "Total de hogares", booktabs = T) %>% 
+  kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+
+
+```{r, echo=T}
+abs.nacdf <- as.data.frame(abs.nac)
+colnames(abs.nacdf) <- c("Absoluto", "Error estándar de absoluto")
+rel.nacdf <- as.data.frame(rel.nac)
+colnames(rel.nacdf) <- c("Relativo", "Error estándar de relativo")
+
+
+n.nac <- cbind(abs.nacdf, rel.nacdf)
+rownames(n.nac) <- c("Si", "No", "No sabe")
+  
+kbl(n.nac, 
+    caption = "Condición de hogares con necesidad de vivienda, nivel nacional", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+SE significará Error estándar.
+```{r, echo=T}
+abs.entdf <- as.data.frame(abs.ent)
+abs.entdf <- abs.entdf[c(-1)]
+row.names(abs.entdf) <- entidades
+colnames(abs.entdf) <- c("Si", "NO", "No sabe", "SE-Si", "SE-No", 
+                         "SE-No sabe")
+
+kbl(abs.entdf, 
+    caption = "Condición de hogares con necesidad de vivienda, absoluto nivel entidad", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+```{r, echo=T}
+rel.entdf <- as.data.frame(rel.ent)
+rel.entdf <- rel.entdf[c(-1)]
+rel.entdf <- rel.entdf*100
+row.names(rel.entdf) <- entidades
+colnames(rel.entdf) <- c("Si", "NO", "No sabe", "SE-Si", "SE-No", "SE-No sabe")
+
+kbl(rel.entdf, 
+    caption = "Condición de hogares con necesidad de vivienda, 
+    relativo nivel entidad", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+```{r, echo=T}
+total.nac.ic <- as.data.frame(confint(total.nac)) 
+rownames(total.nac.ic) <- "Nivel nacional"
+total.ent.ic <- as.data.frame(confint(total.ent))
+rownames(total.ent.ic) <- entidades
+
+total.ic <- union_all(total.nac.ic, total.ent.ic)
+
+kbl(total.ic, 
+    caption = "Intervalos confianza, total,
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+Ahora presentamos los intervalos de conianza, suponiendo que el estimador sigue una distribución Normal.
+```{r,echo=T}
+abs.nac.ic <- as.data.frame(confint(abs.nac))
+rownames(abs.nac.ic) <- c("Si", "No", "No sabe")
+
+kbl(abs.nac.ic, 
+    caption = "Intervalos confianza, absoluto nacional, 
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+
+```{r, echo=T}
+rel.nac.ic <- as.data.frame(confint(rel.nac))
+rownames(rel.nac.ic) <- c("Si", "No", "No sabe")
+
+kbl(rel.nac.ic, 
+    caption = "Intervalos confianza, relativo nacional, 
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+```{r, echo=T}
+abs.ent.ic <- as.data.frame(confint(abs.ent))
+abs.ent.ic.si <- abs.ent.ic[1:32, ]
+row.names(abs.ent.ic.si) <- entidades
+kbl(abs.ent.ic.si, 
+    caption = "Intervalos confianza, Sí, absoluto entidad, 
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+
+abs.ent.ic.no <- abs.ent.ic[33:64, ]
+row.names(abs.ent.ic.no) <- entidades
+kbl(abs.ent.ic.no, 
+    caption = "Intervalos confianza, No, absoluto entidad, 
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+
+abs.ent.ic.ne <- abs.ent.ic[65:96, ]
+row.names(abs.ent.ic.ne) <- entidades
+# esto es ya que no hay números negativos
+abs.ent.ic.ne$`2.5 %` <- pmax(0, abs.ent.ic.ne$`2.5 %`)
+kbl(abs.ent.ic.ne, 
+    caption = "Intervalos confianza, No sabe, absoluto entidad,
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+
+```{r, echo=T}
+rel.ent.ic <- as.data.frame(confint(rel.ent)*100)
+rel.ent.ic.si <- rel.ent.ic[1:32, ]
+row.names(rel.ent.ic.si) <- entidades
+kbl(rel.ent.ic.si, 
+    caption = "Intervalos confianza, Sí, relativo entidad, 
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+
+rel.ent.ic.no <- rel.ent.ic[33:64, ]
+row.names(rel.ent.ic.no) <- entidades
+kbl(rel.ent.ic.no, 
+    caption = "Intervalos confianza, No, relativo entidad,
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+
+rel.ent.ic.ne <- rel.ent.ic[65:96, ]
+row.names(rel.ent.ic.ne) <- entidades
+# esto es ya que no hay números negativos
+rel.ent.ic.ne$`2.5 %` <- pmax(0, rel.ent.ic.ne$`2.5 %`)
+kbl(rel.ent.ic.ne, 
+    caption = "Intervalos confianza, No sabe, relativo entidad,
+    condición de hogares con necesidad de vivienda", 
+    booktabs = T) %>% kable_styling(latex_options = c("striped", "HOLD_position"))
+```
+
+
