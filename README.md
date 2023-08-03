@@ -14,5 +14,6 @@ The objectives of this project are
   <li> Estimate the total number of households and the percentage of households that have a housing need at the national level and by federal entity national level and by state. </li>
 
   <li> Calculate confidence intervals for the parameters estimated in the previous paragraph. </li>
+</ol>
 
 The brief can be found at [ENVI2020](https://drive.google.com/file/d/1B2OGmgCCaTTb-H6x-JEMiRvC_G7wxL8w/view?usp=drive_link).
