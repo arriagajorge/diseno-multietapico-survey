@@ -17,3 +17,9 @@ The objectives of this project are
 </ol>
 
 The brief can be found at [ENVI2020](https://drive.google.com/file/d/1B2OGmgCCaTTb-H6x-JEMiRvC_G7wxL8w/view?usp=drive_link).
+
+The following image shows the housing need by state in Mexico in 2020.
+<!--https://drive.google.com/file/d/1tzhcSb9CIb8fduHUGb_XiWEkLRrd_0Ia/view?usp=sharing-->
+<p align="center">
+  <img src="https://drive.google.com/uc?export=view&id=1tzhcSb9CIb8fduHUGb_XiWEkLRrd_0Ia" alt="Necesidad vivienda">
+</p>
