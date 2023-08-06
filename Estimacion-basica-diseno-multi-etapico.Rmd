@@ -1,6 +1,6 @@
 ---
-title: "Examen 3A"
-author: "Cruz Martínez Ricardo y Vasquez Arriaga Jorge"
+title: "Encuesta con diseño multietápico"
+author: "Vasquez Arriaga Jorge"
 date: ""
 header-includes:
    - \usepackage[spanish]{babel}
